@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS cameras (
+    id SERIAL PRIMARY KEY,
+    nasa_id INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS pictures (
+    id SERIAL PRIMARY KEY,
+    nasa_id INTEGER NOT NULL,
+    img_src VARCHAR(255) NOT NULL,
+    camera_id INTEGER NOT NULL REFERENCES cameras(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_camera FOREIGN KEY (camera_id) REFERENCES cameras(id)
+);
