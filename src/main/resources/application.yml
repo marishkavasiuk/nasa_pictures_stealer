@@ -1,0 +1,36 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    redis:
+      host: redis-master.dev.svc.cluster.local
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: admin
+    password: 12345
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 20
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+  flyway:
+    enabled: true
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    schema: public
+    url: ${spring.datasource.url}
+    table: nasa_version
+    locations: classpath:migration
+
+nasa:
+  url: https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos
+  api-key: qk5fCwcVe2WQm8oa2dXmNvP3qC4bwVb6nBhLZvWE
